@@ -1,20 +1,20 @@
-import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserProvider";
 
-const Login = () => {
+const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { loginUser } = useContext(UserContext);
+  const { registerUser } = useContext(UserContext);
   const redirect = useNavigate();
 
-  const handleClickLogin = async (e) => {
+  const handleClickRegister = async (e) => {
     e.preventDefault();
     console.log("Procesing", email, password);
+
     try {
-      await loginUser(email, password);
-      console.log("welcome");
+      await registerUser(email, password);
       redirect("/");
     } catch (error) {
       console.log(error.code);
@@ -22,9 +22,9 @@ const Login = () => {
   };
 
   return (
-    <>
-      <h1>Login Page</h1>
-      <form onSubmit={handleClickLogin}>
+    <div>
+      <h1>Register Page</h1>
+      <form onSubmit={handleClickRegister}>
         <input
           type="email"
           placeholder="Your email"
@@ -37,9 +37,9 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Login</button>
+        <button type="submit">Register</button>
       </form>
-    </>
+    </div>
   );
 };
-export default Login;
+export default Register;
